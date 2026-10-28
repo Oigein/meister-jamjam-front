@@ -1,0 +1,23 @@
+/* 대회 등록·수정 폼 */
+.cf { padding: 32px; display: flex; flex-direction: column; gap: 22px; }
+.cf h2 { font-size: 22px; font-weight: 600; }
+.cf h2 small { font-size: 14px; font-weight: 400; color: var(--mute); }
+.cf fieldset { border: 0; margin: 0; padding: 0; }
+.cf-radios { display: flex; gap: 28px; padding: 6px 4px; }
+.cf-catrow { display: flex; gap: 10px; }
+.cf-catrow .select, .cf-catrow .input { flex: 1; min-width: 0; }
+.cf-catbtn { min-height: 48px; min-width: 80px; flex-shrink: 0; }
+.cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.cf-content { min-height: 180px; }
+.cf-err { color: var(--minus); font-size: 13px; }
+.cf-formerr { font-size: 14px; background: var(--minus-wash); padding: 10px 12px; border-radius: 6px; }
+.cf-btns { display: flex; justify-content: flex-end; gap: 8px; }
+.cf [aria-invalid="true"] { border-color: var(--minus); }
+
+@media (max-width: 640px) {
+  .cf { padding: 20px; }
+  .cf-row { grid-template-columns: 1fr; }
+  .cf-catrow { flex-wrap: wrap; }
+  .cf-catrow .select, .cf-catrow .input { flex-basis: 100%; }
+  .cf-catbtn { flex: 1; }
+}

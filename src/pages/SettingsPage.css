@@ -27,9 +27,10 @@
 /* 테마 미리보기 */
 .set-preview { position: relative; overflow: hidden; min-height: 270px; border-radius: 6px; border: 1px solid var(--rule); display: flex; align-items: flex-end; padding: 32px; color: #fff; }
 .set-preview.is-default { background: var(--paper-2); color: var(--ink); }
-.set-preview video { position: absolute; inset: 0; width: 100%; height: 100%; }
-.set-dim { position: absolute; inset: 0; }
-.set-preview-text { position: relative; display: flex; flex-direction: column; gap: 12px; }
+.set-preview { background: #1c2130; isolation: isolate; }
+.set-preview-text.has-shadow { text-shadow: 0 1px 2px rgba(0,0,0,.6), 0 0 14px rgba(0,0,0,.35); }
+.set-preview.is-default .set-preview-text { text-shadow: none; }
+.set-preview-text { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 12px; }
 .set-preview-text small { font-size: 14px; opacity: .85; }
 .set-preview-text strong { font-size: 32px; font-weight: 700; }
 .set-preview-text p { font-size: 19px; }
@@ -40,10 +41,14 @@
 
 .set-bgpanel { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 22px; display: flex; flex-direction: column; gap: 18px; margin-top: -12px; }
 .set-swatches { display: flex; gap: 12px; flex-wrap: wrap; }
-.set-swatches > button, .set-swatch-up { width: 142px; height: 88px; border-radius: 6px; border: 2px solid transparent; cursor: pointer; background-size: cover; }
-.set-swatches > button.is-on, .set-swatch-up.is-on { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
-.set-swatch-up { display: flex; align-items: center; justify-content: center; background: var(--paper-3); font-size: 14px; }
-.set-swatches > .set-upload { border: 1.5px dashed var(--rule-strong); background: transparent; color: var(--mute); font-size: 16px; }
+.set-swatch, .set-upload { position: relative; width: 142px; height: 88px; border-radius: 6px; border: 2px solid transparent; cursor: pointer; background: var(--paper-3) center / cover no-repeat; padding: 0; overflow: hidden; }
+.set-swatch.is-on { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
+.set-swatch > span, .set-swatch-pick > span { position: absolute; left: 0; right: 0; bottom: 0; padding: 4px 8px; font-size: 12px; color: #fff; background: linear-gradient(transparent, rgba(0,0,0,.55)); text-align: left; }
+.set-swatch-up { cursor: default; }
+.set-swatch-pick { position: absolute; inset: 0; border: 0; background: transparent; cursor: pointer; padding: 0; }
+.set-swatch-del { position: absolute; top: 4px; right: 4px; width: 28px; height: 28px; border: 0; border-radius: 999px; background: rgba(0,0,0,.6); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.set-upload { border: 1.5px dashed var(--rule-strong); background: transparent; color: var(--mute); font-size: 16px; }
+.set-upload:disabled { cursor: progress; opacity: .6; }
 .set-note { font-size: 15px; }
 .set-range { width: 100%; appearance: none; height: 6px; border-radius: 3px; background: linear-gradient(to right, var(--accent) var(--p), var(--rule-soft) var(--p)); border: 1px solid var(--rule); }
 .set-range::-webkit-slider-thumb { appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); border: 2px solid #fff; box-shadow: 0 0 0 1px var(--accent); cursor: pointer; }
@@ -61,7 +66,23 @@
   .set-nav nav { flex-direction: row; flex-wrap: wrap; }
   .set-nav .set-logout { margin-top: 0; margin-left: auto; }
   .set-card { padding: 20px; }
-  .set-swatches > button, .set-swatch-up { width: calc(50% - 6px); }
+  .set-swatch, .set-upload { width: calc(50% - 6px); }
+  .set-headright { width: 100%; justify-content: space-between; }
   .set-sizes button { padding: 14px 2px; }
   .set-sizes small { font-size: 12px; text-align: center; }
 }
+
+.set-section { display: flex; flex-direction: column; gap: 16px; scroll-margin-top: 96px; }
+.set-headright { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.set-save { font-size: 13px; color: var(--mute); min-height: 1em; }
+.set-save.is-saved { color: var(--accent-ink); }
+.set-save.is-error { color: var(--minus); }
+.set-toggles { display: flex; flex-direction: column; gap: 12px; }
+.set-toggles .check { align-items: flex-start; line-height: 1.5; }
+.set-toggles .check input { flex-shrink: 0; margin-top: 2px; }
+.set-sizes small { line-height: 1.4; text-align: center; }
+.set-sizes small .mono { font-size: 12px; }
+.set-input input { width: 100%; }
+
+/* 테마 배경 위: 왼쪽 메뉴는 바탕을 깔아 읽기 쉽게 */
+body.has-theme-bg .set-nav nav { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 6px; }

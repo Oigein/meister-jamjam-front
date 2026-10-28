@@ -1,26 +1,27 @@
-import { API_BASE, USE_MOCK, mock, post, request } from './client';
+/* 로그인 · 내 계정 (docs/api/01-auth.md) */
+import { API_ORIGIN, USE_MOCK, api } from './client';
+import type { Role } from './types';
 
-export type Role = 'student' | 'teacher';
-export interface Me { id: string; name: string; studentNo: string; role: Role; unread: number; }
-export interface Notice { id: string; text: string; time: string; read: boolean; }
+export interface Me {
+  userId: string;
+  name: string;
+  email: string;
+  role: Role;
+  profileImageUrl: string | null;
+  student: { grade: number; classNo: number; number: number } | null; // 교사·관리자는 null
+}
 
-// 목업에서는 모든 메뉴를 확인할 수 있게 교사 권한으로 둠. 학생 화면을 보려면 'student'로 변경
-const MOCK_ME: Me = { id: 'me', name: '손범수', studentNo: '2109', role: 'teacher', unread: 3 };
+export const getMe = (signal?: AbortSignal) => api<Me>('/api/me', { signal });
 
-const MOCK_NOTICES: Notice[] = [
-  { id: 'n1', text: '정보처리기능사 증빙이 승인되어 +10점이 반영되었습니다.', time: '10-28', read: false },
-  { id: 'n2', text: '김지훈 선생님이 자진 신고에 답변했습니다.', time: '10-22', read: false },
-  { id: 'n3', text: '교내 해커톤(2학기) 접수가 시작되었습니다.', time: '10-20', read: false },
-  { id: 'n4', text: '벌점 −2 (지각)가 부여되었습니다.', time: '10-02', read: true },
-];
+export const logout = () => api<void>('/auth/logout', { method: 'POST' });
 
-export const getMe = (signal?: AbortSignal) => (USE_MOCK ? mock(MOCK_ME) : request<Me>('/me', { signal }));
+/* 구글 로그인 시작 주소. redirect는 /로 시작하는 내부 경로만 */
+export function googleLoginUrl(redirect?: string | null) {
+  const safe = redirect && redirect.startsWith('/') && !redirect.startsWith('//') ? redirect : null;
+  return `${API_ORIGIN}/auth/google${safe ? `?redirect=${encodeURIComponent(safe)}` : ''}`;
+}
 
-export const getNotifications = () => (USE_MOCK ? mock(MOCK_NOTICES) : request<Notice[]>('/notifications'));
+/* 목업 모드에서 로그인 버튼 → 바로 앱으로 */
+export const isMockLogin = USE_MOCK;
 
-export const markNotificationsRead = () => (USE_MOCK ? mock(null) : post<null>('/notifications/read'));
-
-export const logout = () => (USE_MOCK ? mock(null) : post<null>('/auth/logout'));
-
-/* 구글 OAuth는 백엔드가 처리: 이 주소로 이동 → 구글 로그인 → 백엔드가 세션 만들고 앱으로 돌려보냄 */
-export const googleLoginUrl = () => `${API_BASE}/auth/google`;
+export const isTeacher = (me: Me) => me.role === 'TEACHER' || me.role === 'ADMIN';

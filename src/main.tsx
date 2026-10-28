@@ -9,14 +9,16 @@ import RankingPage from './pages/RankingPage';
 import StudentDetailPage from './pages/StudentDetailPage';
 import RulesPage from './pages/RulesPage';
 import ContestsPage from './pages/ContestsPage';
-import ReportsPage from './pages/ReportsPage';
-import DrawPage from './pages/DrawPage';
+import ContestDetailPage from './pages/ContestDetailPage';
+import EvidencesPage from './pages/EvidencesPage';
 import GradingPage from './pages/GradingPage';
+import SelfReportsPage from './pages/SelfReportsPage';
+import SelfReportDetailPage from './pages/SelfReportDetailPage';
+import TeacherSelfReportsPage from './pages/TeacherSelfReportsPage';
+import DrawPage from './pages/DrawPage';
 import SettingsPage from './pages/SettingsPage';
 import PlaceholderPage from './pages/PlaceholderPage';
-import { applyTheme, loadTheme } from './lib/theme';
-
-applyTheme(loadTheme());
+import { MyStudentRedirect } from './components/MyStudentRedirect';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -26,12 +28,19 @@ createRoot(document.getElementById('root')!).render(
         <Route element={<AppLayout />}>
           <Route path="/" element={<Navigate to="/ranking" replace />} />
           <Route path="/ranking" element={<RankingPage />} />
-          <Route path="/students/:id" element={<StudentDetailPage />} />
+          <Route path="/students/me" element={<MyStudentRedirect />} />
+          <Route path="/students/:studentId" element={<StudentDetailPage />} />
           <Route path="/rules" element={<RulesPage />} />
           <Route path="/contests" element={<ContestsPage />} />
-          <Route path="/reports" element={<ReportsPage />} />
-          <Route path="/draw" element={<DrawPage />} />
+          <Route path="/contests/:contestId" element={<ContestDetailPage />} />
+          <Route path="/me/evidences" element={<EvidencesPage />} />
+          <Route path="/me/evidences/:evidenceId" element={<EvidencesPage />} />
           <Route path="/grading" element={<GradingPage />} />
+          <Route path="/reports" element={<SelfReportsPage />} />
+          <Route path="/me/self-reports/:reportId" element={<SelfReportDetailPage />} />
+          <Route path="/teacher/self-reports" element={<TeacherSelfReportsPage />} />
+          <Route path="/teacher/self-reports/:reportId" element={<SelfReportDetailPage />} />
+          <Route path="/draw" element={<DrawPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="*" element={<PlaceholderPage title="페이지를 찾을 수 없습니다" />} />
         </Route>

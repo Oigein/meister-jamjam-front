@@ -1,0 +1,59 @@
+.ev-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 32px; align-items: start; }
+.ev-err { font-size: 13px; color: var(--minus); }
+
+/* 제출 폼 */
+.ev-form { padding: 28px; display: flex; flex-direction: column; gap: 20px; position: sticky; top: 24px; }
+.ev-drop { display: flex; align-items: center; justify-content: center; min-height: 128px; padding: 20px; border: 1.5px dashed var(--rule-strong); border-radius: 10px; background: var(--paper); cursor: pointer; text-align: center; }
+.ev-drop:hover, .ev-drop.is-drag { border-color: var(--accent); background: var(--accent-wash); }
+.ev-drop:focus-within { outline: 3px solid rgba(74,111,165,.35); outline-offset: 2px; }
+.ev-drop.is-err { border-color: var(--minus); background: var(--minus-wash); }
+.ev-drop-empty, .ev-drop-file { display: flex; flex-direction: column; gap: 6px; font-size: 14px; min-width: 0; }
+.ev-drop-empty b { font-size: 16px; color: var(--accent-ink); }
+.ev-drop-file b { font-size: 15px; word-break: break-all; }
+.ev-desc { min-height: 96px; }
+
+/* 목록 */
+.ev-side { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.ev-list-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.ev-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.ev-item { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; text-decoration: none; color: var(--ink); }
+.ev-item:hover { color: var(--ink); border-color: var(--rule-strong); }
+.ev-item.is-on { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); background: var(--accent-wash); }
+.ev-item-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.ev-item-top b { font-size: 16px; font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
+.ev-item-meta { display: flex; gap: 6px 14px; flex-wrap: wrap; font-size: 13px; align-items: center; }
+.ev-reason { font-size: 14px; color: var(--minus); background: var(--minus-wash); border-radius: 6px; padding: 8px 12px; line-height: 1.55; }
+
+.ev-chip-pending { background: var(--warn-wash); border-color: var(--warn-wash); color: var(--warn); }
+.ev-chip-approved { background: var(--accent-wash); border-color: var(--accent-wash); color: var(--accent-ink); }
+.ev-chip-rejected { background: var(--minus-wash); border-color: var(--minus-wash); color: var(--minus); }
+
+.ev-ai { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; }
+.ev-ai-processing { color: var(--accent-ink); }
+.ev-ai-failed { color: var(--minus); }
+.ev-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: ev-pulse 1s ease-in-out infinite; }
+@keyframes ev-pulse { 50% { opacity: .25; } }
+@media (prefers-reduced-motion: reduce) { .ev-dot { animation: none; } }
+
+/* 상세 */
+.ev-detail { padding: 22px 24px; display: flex; flex-direction: column; gap: 14px; border-color: var(--accent-line); }
+.ev-detail-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.ev-detail-head h3 { font-size: 20px; font-weight: 600; overflow-wrap: anywhere; }
+.ev-detail-head .mono { font-size: 13px; margin-top: 4px; }
+.ev-detail-act { display: flex; gap: 8px; align-items: center; }
+.ev-file { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 14px; }
+.ev-file .chip { max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+.ev-desc-text { font-size: 14px; line-height: 1.6; color: var(--mute); }
+.ev-aibox { background: #F2F4F8; border: 1px solid var(--accent-line); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
+.ev-aibox dl { display: grid; grid-template-columns: 96px 1fr; gap: 8px; margin: 0; }
+.ev-aibox dt { color: var(--mute); }
+.ev-aibox dd { margin: 0; }
+.ev-result { border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; line-height: 1.55; }
+.ev-result-ok { background: var(--accent-wash); }
+.ev-result-no { background: var(--minus-wash); }
+.ev-result-no b { color: var(--minus); }
+
+@media (max-width: 900px) {
+  .ev-layout { grid-template-columns: 1fr; }
+  .ev-form { position: static; padding: 20px; }
+}

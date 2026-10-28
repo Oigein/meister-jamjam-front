@@ -1,23 +1,26 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { USE_MOCK } from '../api/client';
-import { googleLoginUrl } from '../api/me';
+import { googleLoginUrl, isMockLogin } from '../api/me';
 import { GoogleIcon } from '../components/icons';
 import './LoginPage.css';
 
+/* 백엔드가 /login?error=CODE 로 돌려보냄 (docs/api/01-auth.md 2.2) */
 const ERRORS: Record<string, string> = {
-  domain: '학교 계정(@bssm.hs.kr)으로만 로그인할 수 있어요.',
-  unregistered: '학교 명단에 없는 계정입니다. 담당 선생님께 문의하세요.',
+  DOMAIN_NOT_ALLOWED: '학교 구글 계정(@bssm.hs.kr)으로 로그인해 주세요.',
+  NOT_REGISTERED: '등록되지 않은 계정입니다. 담당 선생님께 문의하세요.',
+  AUTH_FAILED: '로그인 중 문제가 발생했습니다. 다시 시도하세요.',
+  GOOGLE_UNAVAILABLE: '로그인 중 문제가 발생했습니다. 다시 시도하세요.',
 };
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  // 백엔드가 로그인 실패 시 /login?error=domain 처럼 돌려보내면 안내 문구 표시
   const [params] = useSearchParams();
-  const error = ERRORS[params.get('error') ?? ''];
+  const code = params.get('error') ?? '';
+  const error = ERRORS[code];
+  const redirect = params.get('redirect');
 
   const login = () => {
-    if (USE_MOCK) navigate('/ranking');
-    else window.location.href = googleLoginUrl();
+    if (isMockLogin) navigate(redirect && redirect.startsWith('/') && !redirect.startsWith('//') ? redirect : '/ranking');
+    else window.location.href = googleLoginUrl(redirect);
   };
 
   return (
@@ -40,7 +43,12 @@ export default function LoginPage() {
         <div className="login-box">
           <h2>로그인</h2>
           <p className="muted">학교 구글 계정 하나로 바로 시작합니다. 별도 가입이나 비밀번호는 없습니다.</p>
-          {error && <p className="login-error" role="alert">{error}</p>}
+          {error && (
+            <div className="login-error" role="alert">
+              <span>{error}</span>
+              {code === 'GOOGLE_UNAVAILABLE' && <button type="button" className="linkbtn" onClick={login}>다시 시도</button>}
+            </div>
+          )}
           <button type="button" className="btn login-google" onClick={login}>
             <GoogleIcon />학교 구글 계정으로 로그인
           </button>

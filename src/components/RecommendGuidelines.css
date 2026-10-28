@@ -1,0 +1,15 @@
+.rg { padding: 28px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.rg-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.rg-head h2 { font-size: 20px; font-weight: 600; }
+.rg-ver { font-size: 13px; }
+.rg-desc { font-size: 14px; color: var(--mute); line-height: 1.6; }
+.rg-form { display: flex; flex-direction: column; gap: 18px; }
+.rg-text { min-height: 200px; }
+.rg-days-row { display: flex; align-items: center; gap: 10px; }
+.rg-days-row .input { width: 120px; }
+.rg-err { color: var(--minus); font-size: 13px; }
+.rg-msg { font-size: 14px; padding: 10px 12px; border-radius: 6px; background: var(--accent-wash); color: var(--accent-ink); }
+.rg-msg.is-error { background: var(--minus-wash); color: var(--minus); }
+.rg-btns { display: flex; justify-content: flex-end; gap: 8px; }
+.rg [aria-invalid="true"] { border-color: var(--minus); }
+@media (max-width: 640px) { .rg { padding: 20px; } }

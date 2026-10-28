@@ -1,6 +1,7 @@
-# BSM 마이스터
+# BSM 마이스터 (마이스터 잼잼 프론트엔드)
 
-부산소프트웨어마이스터고 마이스터 역량 · 상벌점 · 대회 관리 웹 (Vite + React + TypeScript).
+부산소프트웨어마이스터고 마이스터 역량 · 상벌점 · 대회 · 자진 신고 웹 (Vite + React + TypeScript).
+API 명세는 [docs/api](docs/api)에 있고, 프론트는 이 명세를 기준으로 만들어져 있습니다.
 
 ## 실행
 
@@ -10,67 +11,52 @@ npm run dev      # http://localhost:5173
 npm run build    # dist/ 생성
 ```
 
-`.env.example`을 `.env`로 복사해서 설정합니다. `VITE_API_BASE_URL`이 비어 있으면 **목업 데이터**로 모든 화면이 동작합니다.
-목업 사용자는 모든 메뉴를 볼 수 있도록 교사 권한입니다 (`src/api/me.ts`의 `role`을 `'student'`로 바꾸면 학생 화면).
+기본값은 **목업 모드**입니다. 백엔드 없이도 `src/api/mock`의 가짜 서버가 명세대로 응답해서 모든 화면이 동작합니다.
+목업에서 역할(학생 · 교사 · 관리자)은 **설정 → 목업 역할**에서 바꿀 수 있습니다.
 
-## 화면
+## 백엔드 연동
 
-| 경로 | 화면 |
-|---|---|
-| `/login` | 로그인 (학교 구글 계정) |
-| `/ranking` | 점수 랭킹 |
-| `/students/me`, `/students/:학번` | 내 역량 / 학생 상세 |
-| `/rules` | 상벌점 기준 조회 |
-| `/contests` | 대회 + AI 추천 · 질문, 대회 등록(교사) |
-| `/reports` | 자진 신고 |
-| `/draw` | 뽑기 (자리뽑기 — 핀볼은 준비 중) |
-| `/grading` | 점수 부여 (교사: 증빙 검토 + AI 분석, 직접 부여) |
-| `/settings` | 프로필 링크, 테마 |
+`.env.example`을 `.env`로 복사한 뒤:
+
+```bash
+VITE_USE_MOCK=false
+VITE_API_PROXY=http://localhost:8080   # 로컬 백엔드 주소
+```
+
+- 프론트는 명세의 경로(`/api/...`, `/auth/...`)를 그대로 호출합니다. Vite 개발 서버가 이 두 경로를 `VITE_API_PROXY`로 넘겨줍니다.
+- 인증은 **세션 쿠키(`SameSite=Lax`)** 라서 프론트와 백엔드가 같은 도메인처럼 보여야 합니다. 그래서 프록시를 쓰는 구성을 권장합니다.
+  다른 도메인으로 직접 호출하려면 `VITE_API_ORIGIN=https://api.example.com`을 넣고, 백엔드 쪽 CORS(`credentials` 허용)와 쿠키 정책을 맞춰야 합니다.
+- 401을 받으면 현재 주소를 `?redirect=`로 붙여 로그인 화면으로 이동합니다. 오류 응답의 `message`는 화면에 그대로 표시합니다.
+
+### 배포 (Vercel)
+
+Vercel 환경변수에 `VITE_USE_MOCK=false`를 넣고, [vercel.json](vercel.json)에 백엔드로 넘기는 규칙을 **SPA 규칙보다 위에** 추가합니다.
+
+```json
+{
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://백엔드주소/api/:path*" },
+    { "source": "/auth/:path*", "destination": "https://백엔드주소/auth/:path*" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
+```
+
+구글 OAuth 콜백 주소는 `https://프론트도메인/auth/google/callback`으로 등록하면 됩니다.
 
 ## 구조
 
 ```
 src/
-  api/          백엔드 호출 함수 + 목업 데이터 (화면별 1파일)
-  components/   헤더, 레이아웃, 내 역량(MeisterDetail), 아이콘 등 공용
-  pages/        화면별 컴포넌트 + CSS
-  lib/          공용 훅(useAsync), 포맷, 시드 난수, 테마, 링크 검증
-  styles/       전역 디자인 토큰 (:root)
+  api/            명세의 엔드포인트별 타입 + 호출 함수 (client.ts가 공통 처리)
+  api/mock/       목업 서버 (db.ts 공용 데이터, handlers/ 도메인별 핸들러) — 목업 모드에서만 번들에 포함
+  components/     헤더, 레이아웃, 공용 컴포넌트
+  pages/          화면
+  lib/            훅·유틸, 테마
+  styles/         전역 디자인 토큰 (:root)
 ```
-
-## 백엔드 연동
-
-`.env`에 `VITE_API_BASE_URL=https://api.example.com`을 넣으면 목업 대신 아래 엔드포인트를 호출합니다.
-응답 모양은 각 `src/api/*.ts`의 타입이 기준이고, 다르면 그 파일에서 변환만 추가하면 됩니다.
-
-| 기능 | 메서드 · 경로 |
-|---|---|
-| 로그인 | `GET /auth/google` (리다이렉트), 실패 시 `/login?error=domain\|unregistered`로 돌려보내기 |
-| 로그아웃 | `POST /auth/logout` |
-| 내 정보 | `GET /me` (401이면 로그인 화면으로 이동) |
-| 알림 | `GET /notifications`, `POST /notifications/read` |
-| 랭킹 | `GET /ranking?grade=&page=&size=` |
-| 학생 상세 | `GET /students/:id/meister` |
-| 상벌점 기준 | `GET /rules` |
-| 대회 | `GET /contests`, `POST /contests`, `GET /contests/recommendations?mode=value\|high\|short` |
-| 대회 질문 (LLM) | `POST /contests/ask` `{ question }` |
-| 자진 신고 | `GET /reports/mine`, `POST /reports`, `PUT /reports/:id` (multipart: `data` JSON + `files`), `DELETE /reports/:id` |
-| 뽑기 | `GET /draw/classes`, `POST /draw/classes/:id/results` |
-| 점수 부여 | `GET /grading/queue`, `POST /grading/submissions/:id/approve`, `POST /grading/submissions/:id/reject`, `POST /grading/grants` |
-| 프로필 링크 | `GET /me/links`, `PUT /me/links` |
-
-- 백엔드 CORS에서 배포 도메인을 허용해야 합니다. 쿠키 세션이면 `src/api/client.ts`의 `credentials`를 `'include'`로 바꾸세요.
-- 로컬에서는 `VITE_API_BASE_URL=/api`, `VITE_API_PROXY=http://localhost:8080` 으로 프록시를 써도 됩니다.
 
 ## LLM 연동
 
-대회 질문(`/contests/ask`), 대회 추천, 증빙자료 AI 분석(`Submission.ai`, OCR · LLM)은 **모두 백엔드에서** LLM을 호출해야 합니다.
-API 키를 프론트 코드에 넣으면 브라우저에서 그대로 노출됩니다. 프론트는 결과만 받아서 보여줍니다.
-
-## 배포 (Vercel)
-
-1. GitHub에 올린 뒤 Vercel에서 Import (Framework: Vite 자동 인식)
-2. Environment Variables에 `VITE_API_BASE_URL` 추가 (없으면 목업으로 배포됨)
-3. `vercel.json`이 SPA 라우팅(새로고침 404 방지)을 처리합니다.
-
-다른 호스팅도 빌드 명령 `npm run build`, 출력 폴더 `dist`, 모든 경로 → `/index.html` 리라이트만 맞추면 됩니다.
+대회 추천, 추천 대화, 증빙자료 AI 분석(OCR · LLM)은 모두 **백엔드가** LLM을 호출합니다 (API 키를 프론트에 두지 않음).
+추천 대화는 `Accept: text/event-stream` 스트리밍을 지원합니다.

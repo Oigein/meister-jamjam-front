@@ -17,3 +17,6 @@
   .rl-group header, .rl-group th, .rl-group td { padding-left: 14px; padding-right: 14px; }
   .rl-group th:nth-child(2), .rl-group td:nth-child(2) { width: auto; }
 }
+.rl-total { font-size: 14px; margin-bottom: -12px; }
+.rl-title { display: block; }
+.rl-desc { display: block; margin-top: 4px; font-size: 13px; color: var(--mute); }

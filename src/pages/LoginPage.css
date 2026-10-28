@@ -16,7 +16,7 @@
 .login-google { min-height: 54px; font-size: 16px; font-weight: 600; gap: 12px; border-color: var(--rule-strong); }
 .login-domain { text-align: center; font-size: 14px; color: var(--mute); margin: 16px 0 8px; }
 .login-box hr { border: 0; border-top: 1px solid var(--rule); width: 100%; margin: 8px 0; }
-.login-error { background: var(--minus-wash); color: var(--minus); padding: 12px 14px; border-radius: 8px; font-size: 14px; }
+.login-error { display: flex; justify-content: space-between; gap: 12px; background: var(--minus-wash); color: var(--minus); padding: 12px 14px; border-radius: 8px; font-size: 14px; }
 
 @media (max-width: 860px) {
   .login { grid-template-columns: 1fr; }

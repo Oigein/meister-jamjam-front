@@ -1,0 +1,25 @@
+/* 테마 배경 레이어 + 배경 위 글자 가독성 (src/lib/theme.tsx) */
+.theme-bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: #1c2130; }
+.theme-bg.is-preview { position: absolute; z-index: 0; }
+.theme-bg-media { position: absolute; inset: 0; }
+.theme-bg-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.theme-bg-media.is-fallback { background: #1c2130; }
+.theme-bg-dim { position: absolute; inset: 0; background: #000; }
+
+/* body 배경이 레이어를 가리지 않도록 (html 배경은 레이어 아래 캔버스) */
+body.has-theme-bg { background: transparent; }
+
+/* 배경 위에 바로 놓인 글자 → 밝게 (:where로 명시도를 고정해 아래 카드 규칙이 확실히 이기도록) */
+body.has-theme-bg :where(.page-title, .section-title, .page-msg h1) { color: #fff; }
+body.has-theme-bg :where(.eyebrow, .page-desc, .footnote, .status-msg, .page-msg, .page > .muted, .page-head .muted) { color: rgba(255, 255, 255, .86); }
+body.has-theme-bg.theme-text-shadow :where(.page-title, .section-title, .page-msg, .eyebrow, .page-desc, .footnote, .status-msg, .page > .muted, .page-head .muted) {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .6), 0 0 14px rgba(0, 0, 0, .35);
+}
+
+/* 카드·헤더·대화상자처럼 바탕이 있는 곳은 원래 어두운 글자 유지 */
+body.has-theme-bg.has-theme-bg :where(.card, .hd, dialog, [role="dialog"]) { color: var(--ink); text-shadow: none; }
+body.has-theme-bg.has-theme-bg :where(.card, .hd, dialog, [role="dialog"]) :where(.page-title, .section-title, .page-msg h1) { color: var(--ink); text-shadow: none; }
+body.has-theme-bg.has-theme-bg :where(.card, .hd, dialog, [role="dialog"]) :where(.eyebrow, .page-desc, .footnote, .status-msg, .page-msg, .muted) { color: var(--mute); text-shadow: none; }
+
+/* 헤더는 항상 불투명 */
+body.has-theme-bg .hd { background: var(--paper); }
