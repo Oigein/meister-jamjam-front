@@ -1,0 +1,69 @@
+.gr-layout { display: grid; grid-template-columns: minmax(260px, 1fr) minmax(0, 1.5fr) minmax(300px, 1.1fr); gap: 28px; align-items: start; }
+.gr-small { font-size: 13px; }
+.gr-none { grid-column: 2 / -1; }
+
+/* 대기 목록 */
+.gr-queue { overflow: hidden; }
+.gr-queue-head { padding: 22px 22px 18px; display: flex; flex-direction: column; gap: 14px; border-bottom: 1px solid var(--rule); }
+.gr-queue-title { display: flex; justify-content: space-between; align-items: baseline; }
+.gr-queue-title h2 { font-size: 20px; font-weight: 600; }
+.gr-queue ul { list-style: none; margin: 0; padding: 0; }
+.gr-queue li + li { border-top: 1px solid var(--rule-soft); }
+.gr-queue li button { width: 100%; text-align: left; border: 0; background: var(--surface); padding: 20px 22px; display: flex; flex-direction: column; gap: 8px; cursor: pointer; font-size: 15px; }
+.gr-queue li button:hover { background: #FBFBF9; }
+.gr-queue li button.is-on { background: var(--accent-wash); }
+.gr-qtop { display: flex; justify-content: space-between; gap: 8px; }
+.gr-qtop b { font-size: 17px; font-weight: 600; }
+.gr-qtop .mono { font-size: 13px; }
+.gr-empty { padding: 22px; color: var(--mute); font-size: 14px; }
+
+/* 가운데 */
+.gr-mid { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.gr-student { padding: 22px 26px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.gr-student h2 { font-size: 22px; font-weight: 600; margin-bottom: 8px; }
+.gr-student p { font-size: 15px; }
+.gr-student b { color: var(--ink); font-weight: 600; }
+.gr-student a { text-decoration: none; font-size: 15px; white-space: nowrap; }
+.gr-preview { background: var(--paper-2); border: 1px solid var(--rule); border-radius: 10px; padding: 32px; min-height: 480px; display: flex; justify-content: center; }
+.gr-preview img { max-width: 100%; max-height: 640px; object-fit: contain; }
+.gr-preview iframe { width: 100%; min-height: 640px; border: 0; background: #fff; }
+.gr-paper { width: min(100%, 460px); aspect-ratio: 1 / 1.41; background: #fff; border: 1px solid var(--rule-strong); padding: 48px 32px; display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; }
+.gr-paper h3 { font-size: 26px; font-weight: 600; }
+.gr-paper hr { width: 50%; border: 0; border-top: 1px solid var(--rule-strong); margin: 0; }
+.gr-paper p { font-size: 15px; }
+.gr-file { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 15px; }
+.gr-file .chip { min-height: 36px; padding: 0 12px; font-size: 15px; border-radius: 6px; }
+
+/* 오른쪽 */
+.gr-right { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.gr-ai { background: #F2F4F8; border-color: var(--accent-line); padding: 22px 26px; display: flex; flex-direction: column; gap: 16px; }
+.gr-ai-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.gr-ai h2, .gr-confirm h2 { font-size: 20px; font-weight: 600; }
+.gr-ai .chip-line { background: var(--surface); font-size: 12px; }
+.gr-ai dl { display: grid; grid-template-columns: 120px 1fr; gap: 12px 8px; margin: 0; font-size: 16px; }
+.gr-ai dt { color: var(--mute); }
+.gr-ai dd { margin: 0; }
+.gr-reason { padding-top: 16px; border-top: 1px solid var(--accent-line); font-size: 14px; color: var(--mute); line-height: 1.7; }
+.gr-reason-empty { font-size: 14px; line-height: 1.6; }
+.gr-confirm { padding: 26px; display: flex; flex-direction: column; gap: 20px; }
+.gr-pts { min-height: 56px; font-size: 18px; }
+.gr-btns { display: grid; grid-template-columns: 1fr 1.9fr; gap: 10px; }
+.gr-btns .btn { min-height: 56px; }
+.gr-reject { min-height: 100px; }
+
+/* 직접 부여 */
+.gr-direct { max-width: 860px; padding: 32px; display: flex; flex-direction: column; gap: 22px; }
+.gr-direct-row { display: grid; grid-template-columns: 140px 1fr 160px; gap: 16px; }
+.gr-direct-btn { display: flex; justify-content: flex-end; }
+
+@media (max-width: 1100px) {
+  .gr-layout { grid-template-columns: minmax(240px, 1fr) minmax(0, 2fr); }
+  .gr-right { grid-column: 2; }
+}
+@media (max-width: 760px) {
+  .gr-layout { grid-template-columns: 1fr; }
+  .gr-right, .gr-none { grid-column: auto; }
+  .gr-preview { min-height: 0; padding: 16px; }
+  .gr-direct { padding: 20px; }
+  .gr-direct-row { grid-template-columns: 1fr; }
+}

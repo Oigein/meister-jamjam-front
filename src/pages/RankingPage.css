@@ -1,0 +1,34 @@
+.rk-sum { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(240px, 1fr); }
+.rk-sum > div { padding: 24px 28px; display: flex; flex-direction: column; gap: 12px; }
+.rk-sum > div + div { border-left: 1px solid var(--rule); }
+.rk-sum span { font-size: 14px; color: var(--mute); }
+.rk-sum strong { font-size: 40px; font-weight: 600; letter-spacing: -0.02em; line-height: 1; }
+.rk-sum small { font-size: 16px; font-weight: 400; color: var(--mute); margin-left: 2px; }
+.rk-sum em { font-style: normal; font-size: 18px; font-weight: 400; color: var(--mute); margin-left: 12px; }
+.rk-sum .rk-cta { justify-content: center; }
+
+.rk-table { overflow: hidden; }
+.rk-table table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.rk-table th { background: var(--paper-2); text-align: left; font-size: 14px; font-weight: 500; color: var(--mute); padding: 14px 24px; border-bottom: 1px solid var(--rule); }
+.rk-table td { padding: 14px 24px; border-bottom: 1px solid var(--rule-soft); }
+.rk-table tr.is-me td { background: var(--accent-wash); }
+.rk-table td a { color: var(--ink); text-decoration: none; }
+.rk-table td a:hover { text-decoration: underline; }
+.rk-table th:last-child, .rk-table td:last-child { width: 40%; }
+.rk-me { margin-left: 8px; font-size: 11px; padding: 1px 6px; border-radius: 4px; background: var(--accent); color: #fff; }
+.rk-score { display: flex; align-items: center; gap: 16px; }
+.rk-score .mono { min-width: 36px; text-align: right; font-weight: 500; }
+.rk-bar { flex: 1; height: 4px; min-width: 60px; background: var(--rule-soft); border-radius: 2px; overflow: hidden; }
+.rk-bar i { display: block; height: 100%; background: #BDBDB5; border-radius: 2px; }
+.rk-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 16px 24px; }
+
+@media (max-width: 860px) {
+  .rk-sum { grid-template-columns: 1fr 1fr; }
+  .rk-sum > div + div { border-left: 0; }
+  .rk-sum > div:nth-child(even) { border-left: 1px solid var(--rule); }
+  .rk-sum > div:nth-child(n+3) { border-top: 1px solid var(--rule); }
+  .rk-sum strong { font-size: 30px; }
+  .rk-table th, .rk-table td { padding: 12px 10px; }
+  .rk-bar { display: none; }
+  .rk-table th:last-child, .rk-table td:last-child { width: auto; }
+}

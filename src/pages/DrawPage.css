@@ -1,0 +1,62 @@
+.dr { display: flex; flex-direction: column; gap: 28px; }
+.dr-top { padding: 20px 24px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.dr-class { display: flex; align-items: center; gap: 12px; font-size: 15px; }
+.dr-class .select { width: auto; min-width: 200px; font-size: 17px; }
+.dr-counts { font-size: 14px; }
+.dr-tabs { margin-left: auto; }
+.dr-topbtns { display: flex; gap: 10px; margin-left: auto; }
+.dr-topbtns .btn { min-height: 48px; font-size: 15px; padding: 0 20px; }
+
+.dr-manage { padding: 20px 24px; display: flex; flex-direction: column; gap: 12px; font-size: 14px; }
+.dr-manage ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 4px 24px; }
+.dr-manage li { display: flex; align-items: center; gap: 16px; padding: 6px 0; border-bottom: 1px solid var(--rule-soft); }
+.dr-manage li > span { flex: 1; font-size: 15px; }
+.dr-manage .check { font-size: 14px; gap: 6px; }
+
+.dr-layout { display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; }
+.dr-board { flex: 999 1 640px; min-width: 0; background: var(--paper-2); border: 1px solid var(--rule); border-radius: 10px; padding: 32px clamp(16px, 8%, 160px) 32px; display: flex; flex-direction: column; align-items: center; gap: 32px; }
+.dr-desk { width: 75%; background: #2F3833; color: #fff; text-align: center; padding: 14px; border-radius: 4px; font-size: 15px; }
+.dr-seats { display: grid; gap: 20px 36px; width: 100%; }
+.dr-seat { position: relative; min-height: 96px; background: var(--surface); border: 1px solid var(--rule-strong); border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 8px; }
+.dr-seat .mono { font-size: 17px; }
+.dr-seat b { font-size: 20px; font-weight: 600; }
+.dr-seat.is-me { background: var(--accent-wash); border-color: var(--accent-line); }
+.dr-seat.is-empty { background: var(--paper-3); border-color: var(--paper-3); color: var(--faint); }
+.dr-seat.is-empty b { font-weight: 500; }
+.dr-seat.is-hidden { cursor: pointer; font-size: 32px; font-family: var(--mono); color: #fff; background: var(--accent); border-color: var(--accent); }
+.dr-seat.is-hidden:hover { background: var(--accent-ink); }
+.dr-fixed { position: absolute; top: 6px; right: 10px; font-size: 12px; color: var(--accent-ink); }
+
+.dr-board:fullscreen { justify-content: center; padding: 48px 6vw; border-radius: 0; }
+.dr-board:fullscreen .dr-seat { min-height: 15vh; }
+.dr-board:fullscreen .dr-seat b { font-size: 3.2vw; }
+.dr-board:fullscreen .dr-seat .mono { font-size: 1.8vw; }
+.dr-board:fullscreen .dr-desk { font-size: 1.6vw; }
+
+.dr-side { flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+.dr-panel { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+.dr-panel h2 { font-size: 20px; font-weight: 600; }
+.dr-opts { display: flex; flex-direction: column; gap: 10px; }
+.dr-opts button { min-height: 48px; padding: 0 16px; text-align: left; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); color: var(--mute); font-size: 16px; cursor: pointer; }
+.dr-opts button.is-on { border: 1.5px solid var(--ink); color: var(--ink); font-weight: 600; }
+.dr-panel .btn-lg { min-height: 56px; font-size: 18px; }
+.dr-seedlabel { font-size: 15px; }
+.dr-seed { font-size: 18px; letter-spacing: .02em; }
+.dr-2btn { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.dr-2btn .btn { min-height: 48px; }
+
+.dr-soon { padding: 48px; text-align: center; display: flex; flex-direction: column; gap: 8px; }
+
+@media (max-width: 640px) {
+  .dr-tabs, .dr-topbtns { margin-left: 0; }
+  .dr-seats { gap: 10px; }
+  .dr-seat b { font-size: 15px; }
+  .dr-desk { width: 100%; }
+}
+
+/* 인쇄: 자리 배치판만 */
+@media print {
+  body * { visibility: hidden; }
+  .dr-board, .dr-board * { visibility: visible; }
+  .dr-board { position: absolute; left: 0; top: 0; width: 100%; border: 0; }
+}

@@ -1,0 +1,54 @@
+/* AI 추천 */
+.ct-rec { background: #F2F4F8; border: 1px solid var(--accent-line); border-radius: 12px; padding: 32px; display: flex; flex-direction: column; gap: 28px; }
+.ct-rec-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+.ct-rec-title { display: flex; flex-direction: column; gap: 12px; }
+.ct-rec-title h2 { font-size: 24px; font-weight: 600; }
+.ct-rec-title p { font-size: 16px; color: var(--ink); opacity: .8; }
+.ct-rec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.ct-rec-card { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 22px 22px 20px; display: flex; flex-direction: column; gap: 12px; }
+.ct-rec-top { display: flex; justify-content: space-between; font-size: 14px; }
+.ct-rec-card h3 { font-size: 19px; font-weight: 600; }
+.ct-rec-reason { font-size: 15px; color: var(--mute); line-height: 1.65; flex: 1; }
+.ct-rec-foot { display: flex; justify-content: space-between; gap: 8px; padding-top: 14px; border-top: 1px solid var(--rule-soft); font-size: 15px; color: var(--mute); }
+.ct-rec-foot b { color: var(--ink); font-weight: 500; }
+.ct-stars { font-size: 11px; letter-spacing: 1px; color: var(--ink); margin-left: 4px; }
+.ct-stars span { color: var(--rule-strong); }
+.ct-ask { display: flex; gap: 10px; }
+.ct-ask .input { min-height: 56px; font-size: 16px; }
+.ct-ask .btn { min-height: 56px; flex-shrink: 0; }
+.ct-answer { background: var(--surface); border: 1px solid var(--accent-line); border-radius: 10px; padding: 18px 20px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; font-size: 15px; line-height: 1.7; }
+
+/* 전체 대회 */
+.ct-all { display: flex; flex-direction: column; gap: 20px; }
+.ct-listhead { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.ct-listhead h2 .mono { font-size: 18px; font-weight: 400; margin-left: 4px; }
+.ct-tools { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.ct-cat { width: auto; min-height: 46px; min-width: 160px; }
+.ct-addbtn { min-height: 46px; padding: 0 20px; font-size: 15px; }
+.ct-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.ct-card { padding: 24px; display: flex; flex-direction: column; gap: 14px; min-height: 210px; }
+.ct-card.is-closed { opacity: .55; }
+.ct-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.ct-card-top .mono { font-size: 14px; }
+.ct-chips { display: flex; gap: 8px; }
+.ct-card h3 { font-size: 20px; font-weight: 600; }
+.ct-card p.muted { font-size: 15px; }
+.ct-warn { background: var(--warn-wash); color: var(--warn); font-size: 14px; padding: 9px 12px; border-radius: 6px; }
+
+/* 등록 폼 */
+.ct-form { max-width: 640px; padding: 32px; display: flex; flex-direction: column; gap: 22px; }
+.ct-form h2 { font-size: 22px; font-weight: 600; }
+.ct-form h2 small { font-size: 14px; font-weight: 400; color: var(--mute); }
+.ct-form fieldset { border: 0; margin: 0; padding: 0; }
+.ct-radios { display: flex; gap: 28px; padding: 6px 4px; }
+.ct-catrow { display: flex; gap: 10px; }
+.ct-catbtn { min-height: 48px; min-width: 96px; }
+.ct-formrow { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ct-formbtns { display: flex; justify-content: flex-end; gap: 8px; }
+
+@media (max-width: 640px) {
+  .ct-rec { padding: 20px; }
+  .ct-ask { flex-direction: column; }
+  .ct-form { padding: 20px; }
+  .ct-formrow { grid-template-columns: 1fr; }
+}

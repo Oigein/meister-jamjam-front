@@ -1,0 +1,55 @@
+.rp-private { display: flex; align-items: center; gap: 8px; }
+.rp-layout { display: flex; flex-wrap: wrap; gap: 36px; align-items: flex-start; }
+.rp-form { flex: 999 1 560px; min-width: 0; padding: 36px 40px; display: flex; flex-direction: column; gap: 28px; }
+.rp-side { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+.rp-side .section-title { padding-top: 8px; }
+.rp-small { font-size: 14px; }
+
+.rp-editing { display: flex; justify-content: space-between; gap: 12px; padding: 12px 16px; background: var(--accent-wash); border-radius: 8px; font-size: 14px; color: var(--accent-ink); }
+.rp-teachers { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.rp-teacher { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--ink); border-radius: 8px; font-size: 16px; }
+.rp-teacher small { font-size: 13px; color: var(--mute); }
+.rp-teacher button { border: 0; background: none; padding: 2px; cursor: pointer; color: var(--mute); display: flex; }
+.rp-addteacher { min-height: 48px; font-size: 15px; }
+.rp-pick { width: auto; }
+.rp-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+.rp-drop { border: 1.5px dashed var(--rule-strong); border-radius: 8px; background: var(--paper); }
+.rp-drop.is-drag { border-color: var(--accent); background: var(--accent-wash); }
+.rp-drop button { width: 100%; min-height: 96px; border: 0; background: transparent; cursor: pointer; color: var(--mute); font-size: 15px; }
+.rp-drop button:disabled { cursor: not-allowed; opacity: .6; }
+.rp-files { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.rp-files li { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--rule); border-radius: 6px; font-size: 14px; }
+.rp-files button { border: 0; background: none; cursor: pointer; color: var(--mute); display: flex; padding: 4px; }
+
+.rp-methods { border: 0; margin: 0; padding: 0; gap: 12px; }
+.rp-methods legend { margin-bottom: 8px; }
+.rp-method { display: flex; gap: 16px; align-items: flex-start; padding: 18px 24px; border: 1px solid var(--rule-strong); border-radius: 8px; cursor: pointer; }
+.rp-method input { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--accent); }
+.rp-method span { display: flex; flex-direction: column; gap: 6px; }
+.rp-method b { font-size: 17px; font-weight: 500; }
+.rp-method small { font-size: 14px; color: var(--mute); }
+.rp-method.is-on { border-color: var(--accent); background: #F4F6FA; box-shadow: inset 0 0 0 1px var(--accent); }
+
+.rp-notice { padding-top: 24px; border-top: 1px solid var(--rule); font-size: 14px; color: var(--mute); line-height: 1.7; }
+.rp-submit { display: flex; justify-content: flex-end; }
+.rp-submit .btn { min-height: 56px; padding: 0 36px; }
+
+.rp-item { padding: 22px; display: flex; flex-direction: column; gap: 12px; }
+.rp-item.is-editing { border-color: var(--accent); }
+.rp-item-top { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.rp-item h3 { font-size: 17px; font-weight: 600; }
+.rp-item-top .mono { font-size: 13px; flex-shrink: 0; }
+.rp-steps { list-style: none; margin: 4px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.rp-steps li { border-top: 4px solid var(--rule-soft); border-radius: 2px; padding-top: 8px; font-size: 12px; color: var(--mute); }
+.rp-steps li.is-done { border-top-color: var(--accent); }
+.rp-steps li.is-now { color: var(--ink); font-weight: 700; }
+.rp-actions { display: flex; gap: 8px; }
+.rp-reply { background: var(--paper-2); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+.rp-reply small { font-size: 13px; color: var(--mute); }
+.rp-reply p { font-size: 15px; line-height: 1.6; }
+
+@media (max-width: 640px) {
+  .rp-form { padding: 20px; }
+  .rp-row { grid-template-columns: 1fr; }
+}
